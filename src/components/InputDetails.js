@@ -8,7 +8,7 @@ const InputDetails = (props) => {
     <ul >
       {props.users.map((user) => (
         <li key={user.id} className="li" >
-          {user.name}({user.age} years old)
+          {user.name}({user.age} years old) college Name:--{user.college}
         </li>
       ))}
     </ul>

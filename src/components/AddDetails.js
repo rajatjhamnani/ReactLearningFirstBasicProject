@@ -1,4 +1,4 @@
-import React ,{useState} from "react";
+import React ,{useState ,useRef} from "react";
 import Card from "./Card";
 import './AddDetails.css'
 import './Button.css'
@@ -6,6 +6,10 @@ import ErrorModal from "./ErrorModal";
 
 
 const AddDetails=(props)=>{
+
+const collegeNameRef=useRef() //using ref for college name
+
+
 	const [changedName , setChangedName]=useState('')
 	const [changedAge , setChangedAge]=useState('')
 	const [error , setError]=useState('')
@@ -17,14 +21,15 @@ const AddDetails=(props)=>{
 	}
 	 const submitHandler=(event)=>{
 		event.preventDefault()
+	    const enteredCollegeName=collegeNameRef.current.value
 		let enteredData={
 			enteredName:changedName,
 			enteredAge:changedAge
 		}
-		if(changedName.trim().length===0||changedAge.trim().length===0){
+		if(changedName.trim().length===0||changedAge.trim().length===0 || enteredCollegeName.trim().length===0){
 			setError({
 				title :'invalid input',
-				message:'please enter the valide name and age(non-empty values)'
+				message:'please enter the valide name , age and college name(non-empty values)'
 			})
 			return
 		}
@@ -35,10 +40,11 @@ const AddDetails=(props)=>{
 			})
 			return 
 		}
-		props.onAddUser(changedName , changedAge)
-		
+		props.onAddUser(changedName , changedAge , enteredCollegeName)
+		collegeNameRef.current.value=''
 		setChangedName('')
 		setChangedAge('')
+		
 	 }
 	 const errorHandler=()=>{
 		setError(null)
@@ -53,11 +59,15 @@ return (
 	<div>
 	<div >
 		<label className="">Write Name</label>
-		<input type='text' value={changedName} onChange={nameChange}/>
+		<input  type='text' value={changedName} onChange={nameChange}/>
 	</div>
 	<div>
 		<label>Write Age</label>
-		<input type='number' value={changedAge} min='0' step='1' onChange={ageChange}/>
+		<input  type='number' value={changedAge} min='0' step='1' onChange={ageChange}/>
+	</div>
+	<div>
+		<label>College Name</label>
+		<input  type='text' ref={collegeNameRef} />
 	</div>
 	<button className="button" type='submit'>Add Details</button>
 	</div>
