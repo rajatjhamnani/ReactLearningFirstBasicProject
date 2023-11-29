@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import React  from 'react';
 import './App.css';
 import AddDetails from './components/AddDetails';
 import InputDetails from './components/InputDetails';
@@ -19,11 +20,11 @@ function App() {
   
   
   return (
-    <div className="App">
+    <React.Fragment>
      <AddDetails onAddUser={addedDetails}/>
      <InputDetails users={usersList}/>
      
-    </div>
+    </React.Fragment>
   );
 }
 
